@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Details</title>
+</head>
+<body>
+    <h2>Customer Details Form</h2>
+    <form id="customerForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required pattern="[A-Za-z]+">
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
+
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" title="Please enter a 10-digit phone number">
+
+        <label for="customerClass">Customer Class:</label>
+        <select id="customerClass" name="customerClass">
+            <option value="premium">Premium</option>
+            <option value="gold">Gold</option>
+            <option value="standard">Standard</option>
+        </select>
+
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
+    <div id="customerDetails"></div>
+
+    <script>
+        function submitForm() {
+            // Validate form inputs here
+
+            // Send form data to the server using AJAX
+            var formData = new FormData(document.getElementById('customerForm'));
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'process_form.php', true);
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    document.getElementById('customerDetails').innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send(formData);
+        }
+    </script>
+</body>
+</html>
